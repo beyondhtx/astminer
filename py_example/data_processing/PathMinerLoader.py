@@ -25,7 +25,7 @@ class PathMinerLoader:
     @staticmethod
     def _load_tokens(tokens_file):
         fstring = '{:d},{}'
-        with open(tokens_file, 'r'， encoding='utf-8') as f:
+        with open(tokens_file, 'r', encoding='utf-8') as f:
             indices = []
             tokens = []
             for line in f.readlines()[1:]:
