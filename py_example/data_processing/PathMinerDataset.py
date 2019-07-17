@@ -28,7 +28,7 @@ class PathMinerDataset(Dataset):
                 starts[i, j] = context.start_token
                 paths[i, j] = context.path
                 ends[i, j] = context.end_token
-        return torch.LongTensor(starts), torch.LongTensor(paths), torch.LongTensor(ends)
+        return torch.LongTensor(starts).cuda(), torch.LongTensor(paths).cuda(), torch.LongTensor(ends).cuda()
 
     def __len__(self):
         return self.size

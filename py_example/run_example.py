@@ -45,11 +45,12 @@ def train(train_loader, test_loader, model, optimizer, loss_function, n_epochs=3
         current_loss = 0
         for n_batch, sample in enumerate(train_loader):
             contexts, labels = sample['contexts'], sample['labels']
-
             optimizer.zero_grad()
 
             predictions = model(contexts)
-            loss = loss_function(predictions, labels)
+            #predictions.cuda()
+            loss = loss_function(predictions, labels.cuda())
+            #loss.cuda()
             loss.backward()
             optimizer.step()
 
@@ -66,8 +67,9 @@ def train(train_loader, test_loader, model, optimizer, loss_function, n_epochs=3
             for sample in test_loader:
                 contexts, labels = sample['contexts'], sample['labels']
                 batched_predictions = model(contexts)
+                #batched_predictions.cuda()
                 # binarize the prediction
-                batched_predictions = (batched_predictions > 0.5).numpy()
+                batched_predictions = (batched_predictions > 0.5).cpu().numpy()
                 batched_targets = (labels > 0.5).numpy()
                 predictions[cur:cur + len(batched_predictions)] = batched_predictions
                 targets[cur:cur + len(batched_targets)] = batched_targets
@@ -95,6 +97,9 @@ def main(args):
     model = ProjectClassifier(len(loader.tokens) + 1, len(loader.paths) + 1, 8)
     optimizer = torch.optim.Adam(model.parameters())
     loss_function = torch.nn.BCELoss()
+
+    model.cuda()
+    #loss_function.cuda()
 
     train(train_loader, test_loader, model, optimizer, loss_function, n_epochs=10, log_batches=20)
 
