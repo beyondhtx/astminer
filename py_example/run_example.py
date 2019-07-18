@@ -83,6 +83,8 @@ def train(train_loader, test_loader, model, optimizer, loss_function, n_epochs=3
 
 
 def main(args):
+    print("Checking GPU status")
+    print(torch.cuda.is_available, torch.cuda.device_count(), torch.cuda.get_device_name(0), torch.cuda.current_device())
     print("Checking if projects are loaded and processed")
     load_projects()
     print("Loading generated data")
@@ -99,6 +101,7 @@ def main(args):
     loss_function = torch.nn.BCELoss()
 
     model.cuda()
+    #model = torch.nn.DataParallel(model)
     #loss_function.cuda()
 
     train(train_loader, test_loader, model, optimizer, loss_function, n_epochs=10, log_batches=20)
