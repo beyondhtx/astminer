@@ -104,7 +104,11 @@ def main(args):
     #model = torch.nn.DataParallel(model)
     #loss_function.cuda()
 
-    train(train_loader, test_loader, model, optimizer, loss_function, n_epochs=10, log_batches=20)
+    #train(train_loader, test_loader, model, optimizer, loss_function, n_epochs=10, log_batches=20)
+    train(train_loader, test_loader, model, optimizer, loss_function, n_epochs=10000, log_batches=20)
+
+    print("Checking GPU status")
+    print(torch.cuda.is_available, torch.cuda.device_count(), torch.cuda.get_device_name(0), torch.cuda.current_device())
 
 
 if __name__ == '__main__':
