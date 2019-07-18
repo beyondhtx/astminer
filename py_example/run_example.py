@@ -107,7 +107,7 @@ def main(args):
 
     #train(train_loader, test_loader, model, optimizer, loss_function, n_epochs=10, log_batches=20)
     start_time = time.time()
-    train(train_loader, test_loader, model, optimizer, loss_function, n_epochs=200, log_batches=20)
+    train(train_loader, test_loader, model, optimizer, loss_function, n_epochs=200, log_batches=200)
     end_time = time.time()
 
     print("Used time = " + str(end_time - start_time))
