@@ -102,7 +102,7 @@ def main(args):
     loss_function = torch.nn.BCELoss()
 
     model.cuda()
-    #model = torch.nn.DataParallel(model)
+    model = torch.nn.DataParallel(model)
     #loss_function.cuda()
 
     #train(train_loader, test_loader, model, optimizer, loss_function, n_epochs=10, log_batches=20)
