@@ -5,6 +5,7 @@ import numpy as np
 from sklearn.metrics import recall_score, precision_score, accuracy_score
 import torch
 from torch.utils.data import DataLoader
+import time
 
 from data_processing.PathMinerLoader import PathMinerLoader
 from data_processing.PathMinerDataset import PathMinerDataset
@@ -105,7 +106,11 @@ def main(args):
     #loss_function.cuda()
 
     #train(train_loader, test_loader, model, optimizer, loss_function, n_epochs=10, log_batches=20)
-    train(train_loader, test_loader, model, optimizer, loss_function, n_epochs=10000, log_batches=20)
+    start_time = time.time()
+    train(train_loader, test_loader, model, optimizer, loss_function, n_epochs=200, log_batches=20)
+    end_time = time.time()
+
+    print("Used time = " + str(end_time - start_time))
 
     print("Checking GPU status")
     print(torch.cuda.is_available, torch.cuda.device_count(), torch.cuda.get_device_name(0), torch.cuda.current_device())
